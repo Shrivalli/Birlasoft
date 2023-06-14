@@ -1,0 +1,161 @@
+.NET - framework (SDK)
+
+1. platform  - Base class libraries, Runtime Environment(CLR), Languages(C#.NET, VB.NET, F#.NET, J#.NET)
+
+Microsoft Visual Studio (IDE) - Platform
+
+VS 2002,2003,2005,2008,2010,2012,2015,2017(.NET framework (4.7),2019(.NET framework and .NET core),2022(.NET core 6.0)
+
+stages of a program:
+
+1. Source code - the language in which the program is created
+2. compile time - syntax error,link our libraries + Build (the artifacts are created)
+3. Execution time - output is shown
+
+
+source code --> compiled by the respective compilers --> MSIL(Microsoft) / CIL (common Intermediate Langugae) --> CLR --> Native code is generated
+
+
+.NET framework - only on Windows
+.NET core - Windows, Linux and Mac (Visual studio code +SDK)
+
+
+namespace is a collection of classes. A solution is a collection of projects. 
+
+1. Built in namespace - system 
+2. user defined namespace
+
+C# is case sensitive.
+
+
+Background compilation happens
+
+Three types of Applications that can be created in .NET:
+1. Desktop Application: two types - 1. console application (Without GUI) 2. Windows Applications( with GUI) (WPF application)
+2. Web Application: 
+3. Mobile Application - Xamarin
+
+CLR - Automatic Memory Management using Garbage Collector
+CTS - Common Type System  - compatibility in Datatypes
+CLS - Common Language Specification 
+
+
+1. no pointers
+2. no multiple inheritance
+
+Managed and UnManaged Code -
+codes which can be handled by CLR(following the CLS) - Managed Code
+UnManaged Code - Codes which cannot be handled by CLR and which includes memory management segments.
+
+Datatypes in .NET core:
+
+1. Value type - int, float, single, double, bool, datetime, struct, enum
+int i=5;
+the value gets directly stored inside the memory referred by the variable
+
+2. Reference type  - string, object, class, interface, delegate
+
+primitive/built in datatypes:
+string, int, float, single, double, bool, object, datetime
+
+User defined datatype:
+struct,class,interface, delegate, enum
+
+Type Conversions:
+
+1. Implicit - int to float, string to object
+2. Explicit
+
+3. Boxing  - converting a value type to reference type
+4. UnBoxing - convertig a reference type to value type
+
+Website:
+1. codeproject
+2. csharpcorner
+3. dotnetspider
+4. msdn
+5. medium
+
+OOPS:
+A Class is a user defined Datatype. Its an entity which has member variables and member functions
+An object is an instance of a class.
+Data Encapsulation - wrapping of Member variables and member functions into an entity called class 
+Data Abstraction - Hiding unnecessary details and projecting the necessary info to the user. 
+
+Instantiation - creating an instance of a class
+Employee e=new Employee
+
+e is an instance of the class Employee. Using e we can access the member functions of the class with a dot operator.
+
+Access Specifier:
+
+1. private - these member variables or methods are accessible only with in the class. By default all member variables and methods of a class
+are private.
+2. protected - these member variables or methods are accessible to the class and the child class.
+3. internal - these entities are accessible with in the same namespace. Default access specifier for the class
+4. public - these entities are accessible anywhere(outside the namespace with a 'using' keyword)
+
+
+we cannot have private or protected classes in .net. Classes can either be internal or public.
+Namespaces can only be public. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
