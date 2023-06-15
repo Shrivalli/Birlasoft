@@ -1,0 +1,51 @@
+Create a class called Employee with following 
+
+Properties:
+1. Empid
+2. Empname
+3. Salary
+4. Emptype
+
+Methods:
+1. Accept()
+2. Display()
+3. CalculateSalary()
+
+Create two Derived Classes
+
+1. PermenantEmp:
+
+Properties:
+1. DA
+2. HRA
+3. PF
+4. Bonus(10% of salary)
+
+Override Accept() and Display() method to accept and display the derived class properties
+
+CalculateSalary() method should be overrided with new definition for calculating salary as
+salary=DA+HRA+Bonus-PF
+
+
+2. Trainee:
+
+Properties:
+Bonus (5% of salary)
+
+Override Accept() and Display() method to accept and display the derived class properties
+
+CalculateSalary() method should be overrided with new definition for calculating salary as
+salary=Salary+ Bonus
+
+
+In the Main method:
+
+Create a reference variable of Employee class and invoke PermenantEmp methods and Trainee methods.
+
+
+
+
+
+
+
+
