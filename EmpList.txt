@@ -1,0 +1,140 @@
+IEmployee.cs
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace CollectionsEg
+{
+    internal interface IEmployee
+    {
+        
+        void AddNewEmployee(Emp e);
+        void RemoveEmployee(int id);
+    }
+}
+
+
+Emp.cs
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace CollectionsEg
+{
+    internal class Emp:IEmployee
+    {
+        public int Eid { get; set; }
+        public string EName { get; set; }
+        public float Age { get; set; }
+
+        public Emp() { }
+        public Emp(int eid,string ename, float age)
+        {
+            Eid = eid;
+            EName = ename;
+            Age = age;
+        }
+
+        public override string ToString()
+        {
+            return Eid + " " + EName + "  " + Age;
+        }
+
+        public static List<Emp> empList=new List<Emp>();
+        public static List<Emp> getAllEmployees()
+        {
+            empList.Add(new Emp(3, "Ram", 34));
+            empList.Add(new Emp(5, "Sreeja", 23));
+            empList.Add(new Emp(6, "Veena", 21));
+            return empList;
+        }
+
+        public void AddNewEmployee(Emp obj)
+        {
+            empList.Add(obj);  
+        }
+
+        public void RemoveEmployee(int id)
+        {
+            empList=getAllEmployees();
+          Emp o=empList.Where(x=>x.Eid==id).FirstOrDefault();
+            empList.Remove(o);
+            
+        }
+    }
+}
+
+
+
+EmpClient.cs
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace CollectionsEg
+{
+    internal class EmpClient
+    {
+        public static List<Emp> empList = new List<Emp>();
+        
+
+        public static void Main()
+        {
+            Emp obj = new Emp();
+            
+             bool flag = true;
+            
+            while (flag)
+            {
+                Console.WriteLine("Menu");
+                Console.WriteLine("1. Retrieve All Employees");
+                Console.WriteLine("2. Add new Employee");
+                Console.WriteLine("3. Remove an Employee");
+                Console.WriteLine("4. Exit");
+                Console.WriteLine("Enter your Choice:");
+                int ch = Convert.ToInt32(Console.ReadLine());
+                if (ch == 1)
+                {
+                    empList.Clear();
+                    empList=Emp.getAllEmployees();
+
+                    foreach (var item in empList)
+                    {
+                        // Console.WriteLine(item.Eid+" "+item.Age+ " "+item.EName);
+                        Console.WriteLine(item);
+                    }
+                }
+                else if (ch == 2)
+                {
+                    Console.WriteLine("Enter Empid,Empname and Age");
+                    obj.Eid = Convert.ToInt32(Console.ReadLine());
+                    obj.EName = Console.ReadLine();
+                    obj.Age = Convert.ToInt32(Console.ReadLine());
+                    obj.AddNewEmployee(obj);
+                    Console.WriteLine("New Record Added");
+                }
+                else if (ch == 3)
+                {
+                    Console.WriteLine("Enter the ID");
+                    obj.Eid = Convert.ToInt32(Console.ReadLine());
+                    obj.RemoveEmployee(obj.Eid);
+                    Console.WriteLine("The Record got removed");
+                }
+                else if(ch==4)
+                {
+                    flag = false;
+                }
+                
+            }
+        }
+    }
+}
