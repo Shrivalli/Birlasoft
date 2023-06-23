@@ -22,6 +22,34 @@ Insert/Update/Delete (DML)
 SqlDataReader=cmd.ExecuteReader() --> looping through
 
 
+Employee.cs
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ADONETEg
+{
+    internal class Employee
+    {
+        public int Eid { get; set; }
+        public string Name { get; set; }
+        public float Salary { get; set; }
+        public DateTime dob { get; set; }
+        public string Phno { get; set; }
+        public int Did { get; set; }
+
+        public override string ToString()
+        {
+            return Eid + " " + Name + " " + Salary + " " + dob + " " + Phno + " " + Did;
+        }
+    }
+}
+
+
+
 using System.Data.SqlClient;
 
 
@@ -48,6 +76,75 @@ namespace ADONETEg
                     Console.WriteLine(dr[i]);
                 }
             }
+        }
+public static void AddNewEmployee()
+        {
+            Console.WriteLine("Enter Empid, Name, Salary, DOB, Phnumber and DID");
+            int empid=Convert.ToInt32(Console.ReadLine());
+            string empname=Console.ReadLine();
+            float sal=float.Parse(Console.ReadLine());
+            DateTime dob=Convert.ToDateTime(Console.ReadLine());
+            string phno=Console.ReadLine();
+            int did=Convert.ToInt32(Console.ReadLine());
+            Getcon(); //open the connection
+            cmd = new SqlCommand("insert into employee values(@eid,@ename,@sal,@dob,@phoneno,@deptid)");
+            cmd.Connection = con;
+            //Connecting sql variables to c# variables
+
+            cmd.Parameters.AddWithValue("@eid", empid);
+            cmd.Parameters.AddWithValue("@ename", empname);
+            cmd.Parameters.AddWithValue("@sal", sal);
+            cmd.Parameters.AddWithValue("@dob", dob);
+            cmd.Parameters.AddWithValue("@phoneno", phno);
+            cmd.Parameters.AddWithValue("@deptid", did);
+            int i=cmd.ExecuteNonQuery();
+            Console.WriteLine(i+ " number of row(s) affected");
+
+
+        }
+
+        public static void UpdateSal()
+        {
+             Employee emp=new Employee();
+            
+            emp = getEmployeeByID();
+            Console.WriteLine(emp.ToString());
+            int eid = emp.Eid;
+            Console.WriteLine("Enter the new Salary");
+            float sal=float.Parse(Console.ReadLine());
+            emp.Salary = sal;
+            Getcon();
+            cmd = new SqlCommand("update employee set salary=@sal where empid=@eid");
+            cmd.Parameters.AddWithValue("@sal", sal);
+            cmd.Parameters.AddWithValue("@eid", eid);
+            cmd.Connection = con;
+            int i=cmd.ExecuteNonQuery();
+            Console.WriteLine(i+" Number of Row(s) affected");
+
+        }
+
+        public static Employee getEmployeeByID()
+        {
+            Employee emp=new Employee();
+            Getcon();
+            Console.WriteLine("Enter the employee ID to view the Employee Details");
+            int eid = Convert.ToInt32(Console.ReadLine());
+            cmd = new SqlCommand("select * from employee where empid=" + eid);
+            cmd.Connection=con;
+            SqlDataReader dr=cmd.ExecuteReader();
+            while(dr.Read())
+            {
+
+                emp.Eid = Convert.ToInt32(dr[0]);
+                emp.Name = dr[1].ToString();
+                emp.Salary = float.Parse(dr[2].ToString());
+                emp.dob = Convert.ToDateTime(dr[3]);
+                emp.Phno = dr[4].ToString() ;
+                emp.Did = Convert.ToInt32(dr[5]);
+
+
+            }
+            return emp;
         }
         public static void Main()
         {
