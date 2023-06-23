@@ -1,0 +1,73 @@
+ADO.NET Framework - BCL(Base class libraries)
+
+CRUD - Create Read Update Delete
+
+1. Connection (con)
+
+1. Machine name - Data Source=ipaddress(local)
+2. Database Name - Initial Catalog
+3. Integrated Security - true (Windows Authentication)
+User ID=abc Password=abc (SQL server Authentication)
+
+Open the connection --> Open method is used to open the connection
+
+2. Command(cmd)
+
+Select (DRL) - ExecuteReader() --> method executes the query and returns the result
+Insert/Update/Delete (DML)
+
+
+3. DataReader
+
+SqlDataReader=cmd.ExecuteReader() --> looping through
+
+
+using System.Data.SqlClient;
+
+
+
+namespace ADONETEg
+{
+    class Program
+    {
+        //Global variables
+        public static SqlConnection con = new SqlConnection();
+        public static SqlCommand cmd = new SqlCommand();
+
+        public static void GetAllEmployees()
+        {
+            con = new SqlConnection("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=birlasoftdb; Integrated Security=true");
+            con.Open();
+            cmd = new SqlCommand("select * from employee");
+            cmd.Connection = con;
+            SqlDataReader dr=cmd.ExecuteReader();
+            while(dr.Read()) //loop through the rows
+            {
+                for(int i=0;i<dr.FieldCount;i++) //loop through the columns
+                {
+                    Console.WriteLine(dr[i]);
+                }
+            }
+        }
+        public static void Main()
+        {
+            GetAllEmployees();
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
