@@ -36,3 +36,48 @@ view can contain two things :
 2. html code - 
 
 .cshtml(both logic in c# and presentation in html format)
+The C# codes has to be prefixed with @ (Razor syntax). 
+
+The return type of an action method is IActionResult (interface)
+
+many classes which implements the IActionResult interface
+1. ActionResult (base class)
+2. ViewResult
+3. ContentResult
+4. JsonResult
+5. FileResult
+....
+
+URL of MVC:
+
+https://localhost:portnumber/ControllerName/ActionMethodName  --> return a view of the actionmethod name
+Directly the request is not made for the views in MVC.
+
+Passing Data between controller action method to corresponding view:
+
+1. ViewData["variablename"]=value; (typecasting is necessary)
+2. ViewBag.variablename=value; (dynamic property)
+
+model is used to bind the view to the model class 
+Model is a dynamic property which is used to retrieve the properties of the model class
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
