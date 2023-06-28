@@ -1,0 +1,38 @@
+
+Web Application:
+
+Website is a collection of web pages - both dynamic and static  (Websites can be deployed in a webserver)
+Web Application - website+logic (Web apps can be deployed in app server)
+
+Web hosting - making the web app/ web site available over the internet for accessibility of others
+
+Deploying(copying the build artifacts (not the source code)) the site/ application on to the webserver/Appserver others cannot access
+
+
+Microsoft is providing IISExpress (Internet Information Server) - App server (to deploy our webapplications).
+
+Three types of web applications that can be in .NET core (3 templates)
+1. Webapp - website (Model+View)
+2. MVC - webapplication
+3. API - webapplication
+
+
+Why MVC?
+1. Layer of Abstraction - security
+2. Seperation of Concerns - organizing the work (UI, logic, data)
+
+Controller is a class and it inherits itself from a controller base class.
+Every controller ends with the word Controller (must).
+
+The controller class contains action methods. the action methods invokes the views inside the views folder 
+
+For every controller there will be a folder getting created inside the view folder automatically.
+
+
+Views have the extension of .cshtml (Razor pages)
+view can contain two things :
+
+1. cs - csharp code 
+2. html code - 
+
+.cshtml(both logic in c# and presentation in html format)
