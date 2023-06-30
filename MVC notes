@@ -61,6 +61,12 @@ Passing Data between controller action method to corresponding view:
 model is used to bind the view to the model class 
 Model is a dynamic property which is used to retrieve the properties of the model class
 
+(model )- Controller to view - display - get method 
+View to controller (model) - accepting some data from the user (add/update) (get method and post method)
+
+<a asp-action="actionmethodname"> Hypertext </a>  --> this invokes the get method of an action method
+
+When the submit button is clicked, the form action invokes the post method of the action method.
 
 
 
