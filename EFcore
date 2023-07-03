@@ -1,0 +1,62 @@
+Entity Framework Core:
+
+It provides us BCL or namespace which will help us to connect with the Data Source
+
+It is an ORM (Object Relation Mapping Model)
+
+Table  - Employee
+attributes/columns - empid, empname, salary, doj
+
+create a entity class called Employee with properties (empid, empname, salary and doj)
+object - instance of a class
+Relation - table in Database
+
+Insert a record into the db - add a item to the list
+ EF core is not replacing ADO.NET but that is underlying architecture for EF. 
+
+Two approaches in EF core:
+1. Database first approach
+
+2. Code first approach
+
+Nuget packages :
+1. Entity frameworkcore (6.17)
+2. EFcore SQL
+3. EFcore tools
+
+Context - front end database
+collection of entity classes
+
+Package Manager console:
+
+Scaffold-DbContext "Server=(localdb)\MSSQLLocalDB;Database=Birlasoftdb;Trusted_Connection=True;" Microsoft.EntityFrameworkCore.SqlServer -o Models
+
+
+In appsettings.json:
+ "ConnectionStrings": {
+      "DefaultConnection": "Server=Server=(localdb)\MSSQLLocalDB;Database=Fareportal;Trusted_Connection=True;"
+    },
+
+ Program.cs
+ builder.Services.AddDbContext<FareportalContext>(options =>
+       options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
