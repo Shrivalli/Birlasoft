@@ -1,5 +1,5 @@
-startup.cs
-services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+program.cs
+builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 //services.AddSession(s => s.IdleTimeout = TimeSpan.FromMinutes(30));
 
 LoginPartial.cs
@@ -41,3 +41,7 @@ LoginController:
             db = _db;
             session = httpContextAccessor.HttpContext.Session;
         }
+
+Layout.cshtml
+            @*calling a partial view in the main layout page*@
+            <partial name="LoginPartial"/>
