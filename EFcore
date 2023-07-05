@@ -34,7 +34,7 @@ Scaffold-DbContext "Server=(localdb)\MSSQLLocalDB;Database=Birlasoftdb;Trusted_C
 
 In appsettings.json:
  "ConnectionStrings": {
-      "DefaultConnection": "Server=Server=(localdb)\MSSQLLocalDB;Database=Fareportal;Trusted_Connection=True;"
+      "DefaultConnection": "Server=(localdb)\MSSQLLocalDB;Database=Fareportal;Trusted_Connection=True;"
     },
 
  Program.cs
@@ -42,6 +42,66 @@ In appsettings.json:
        options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 
+Sessions:
+
+Program.cs
+1. builder.Services.AddSession()
+2. app.UseSession();
+
+LoginController:
+
+public class LoginController : Controller
+    {
+        private readonly BirlasoftdbContext db;
+        public LoginController(BirlasoftdbContext _db)
+        {
+            db = _db;
+        }
+        public IActionResult login()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult login(Usertbl u)
+        {
+            var result = (from i in db.Usertbls
+                          where i.Email == u.Email && i.Pwd == u.Pwd
+                          select i).SingleOrDefault();
+            if(result!=null)
+            {
+                HttpContext.Session.SetString("uname", u.Email);
+                return RedirectToAction("GetAllEmployees","Employee");
+            }
+            else
+            {
+                return View();
+            }
+        }
+
+        public IActionResult logout()
+        {
+            HttpContext.Session.Clear();
+            return RedirectToAction("login");
+        }
+    }
+}
+
+EmployeeController.cs
+
+ public IActionResult GetAllEmployees()
+        {
+            //db.Employees contains all the records of the backend
+            var emps = db.Employees.Include(X => X.DidNavigation);
+            ViewBag.username = HttpContext.Session.GetString("uname");
+            return View(emps);
+        }
+
+GetAllEmployees.cshtml:
+
+<h1> Hello @ViewBag.username</h1> 
+
+<a asp-action="logout" asp-controller="Login"> Logout </a>
 
 
 
