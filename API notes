@@ -1,0 +1,50 @@
+API 
+
+Application Programming Interface
+
+Three types of web applications:
+1. Web Apps( Websites - View and Model)
+2. MVC - Model view Controller
+3. API will not have a view. It just has Model and Controller.
+
+It uses HTTP Protocol - Hyper text transfer protocol (Request Response) 
+RESTful service:
+REpresentation of State Transfer: (4 HTTP Verbs)
+1. get - HTTPGet
+2. Insert - HTTPPost
+3. Update - HTTPPut
+4. Delete  - HTTPDelete
+
+MVC Route:
+http://localhost:89374/Controllername/ActionMethodName
+
+API Route:
+http://localhost:89374/api/Controllername/ActionMethodName
+
+Return type of API:
+JSON object
+
+Swagger is a documentation cum testing tool for APIs.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
