@@ -26,6 +26,17 @@ JSON object
 
 Swagger is a documentation cum testing tool for APIs.
 
+status code:
+200-success codes (200, 201, 204 )
+300 - redirection codes
+400 - client side error codes
+500 - server side error codes
+
+401- unauthorized 
+404 - page not found (url wrong)
+
+
+503- service unavailable
 
 
 
