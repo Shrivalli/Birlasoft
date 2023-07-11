@@ -41,6 +41,10 @@ In appsettings.json:
  builder.Services.AddDbContext<FareportalContext>(options =>
        options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+When Repo layer is used:
+
+builder.Services.AddScoped<IProdRepo<Product>, ProdRepo>();
+
 
 Sessions:
 
