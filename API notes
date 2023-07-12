@@ -41,7 +41,11 @@ status code:
 
 
 
+All Api Methods should be Async
 
+Task - sepearate thread is alloted for these async methods.
+
+For all Async methods, await has to be mentioned.
 
 
 
