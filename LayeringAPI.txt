@@ -1,0 +1,125 @@
+ProdRepo.cs
+
+using Microsoft.AspNetCore.Mvc;
+using ProductAPIEFCore.Model;
+
+namespace ProductAPIEFCore.Repository
+{
+    public class ProdRepo : IProdRepo<Product>
+    {
+        private readonly BirlasoftdbContext db;
+        public ProdRepo()
+        {
+
+        }
+
+        public ProdRepo(BirlasoftdbContext _db)
+        {
+            db = _db;
+        }
+
+        public async Task AddNewProduct(Product p)
+        {
+          db.Products.Add(p);
+            await db.SaveChangesAsync();
+        }
+
+        public  async Task<Product> DeleteProduct(int  id)
+        {
+           
+               Product p = db.Products.Where(x=>x.Pid==id).SingleOrDefault();
+            if (p != null)
+            {
+                db.Products.Remove(p);
+                await db.SaveChangesAsync();
+            }
+                return p;
+            
+           
+        }
+
+        public async Task<List<Product>> GetAllProducts()
+        {
+            return db.Products.ToList();
+        }
+
+        public async Task<Product> GetProductById(int id)
+        {
+             Product p = await db.Products.FindAsync(id);
+            return p;
+        }
+
+        public async void UpdateProduct(int id,Product p)
+        {
+            db.Products.Update(p);
+            await db.SaveChangesAsync();
+            
+        }
+    }
+}
+
+
+Product Controller
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using ProductAPIEFCore.Repository;
+using ProductAPIEFCore.Model;
+
+namespace ProductAPIEFCore.Controllers
+{
+    [Route("api/[controller]")]
+    [ApiController]
+    public class ProductController : ControllerBase
+    {
+        private readonly IProdRepo<Product> prodrepo;
+
+
+        public ProductController(IProdRepo<Product> prepo)
+        {
+            prodrepo = prepo;
+        }
+
+        [HttpGet]
+        public ActionResult<List<Product>> GetAllProducts()
+        {
+            return Ok(prodrepo.GetAllProducts());
+        }
+
+        [HttpPost]
+        public IActionResult AddProduct(Product p)
+        {
+            prodrepo.AddNewProduct(p);
+            return Ok();
+        }
+        [HttpPut]
+        public async Task<ActionResult> Edit(int id,Product p)
+        {
+            prodrepo.UpdateProduct(id,p);
+            return Ok();
+        }
+        [HttpDelete]
+        public async Task<ActionResult> DeleteProduct(int id)
+        {
+           
+                if (id == null)
+                {
+                    return BadRequest("Please enter the ID");
+                }
+                Product p = prodrepo.DeleteProduct(id);
+                if (p == null)
+                    return NotFound();
+                else
+                    return Ok();
+            
+           
+        }
+        [HttpGet]
+        [Route("GetProductById")]
+        public async Task<ActionResult> GetProdbyID(int id)
+        {
+            Product p= prodrepo.GetProductById(id);
+            return Ok(p);
+        }
+
+    }
+}
