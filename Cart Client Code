@@ -1,0 +1,181 @@
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using System.Net.Http.Headers;
+using ClientCode.Models;
+using Newtonsoft.Json;
+using System.Text;
+
+namespace ClientCode.Controllers
+{
+    public class CartController : Controller
+    {
+        // GET: CartController
+        public async Task<ActionResult> Index()
+        {
+            List<Cart> EmpInfo = new List<Cart>();
+
+            using (var client = new HttpClient())
+            {
+                //Passing service base url  
+                //       client.BaseAddress = new Uri(Baseurl);
+
+                client.DefaultRequestHeaders.Clear();
+                //Define request data format  
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                //Sending request to find web api REST service resource GetAllEmployees using HttpClient  
+                HttpResponseMessage Res = await client.GetAsync("https://localhost:7189/api/Cart/GetCarts");
+
+                //Checking the response is successful or not which is sent using HttpClient  
+                if (Res.IsSuccessStatusCode)
+                {
+                    //Storing the response details recieved from web api   
+                    var EmpResponse = Res.Content.ReadAsStringAsync().Result;
+
+                    //Deserializing the response recieved from web api and storing into the Employee list  
+                    EmpInfo = JsonConvert.DeserializeObject<List<Cart>>(EmpResponse);
+
+                }
+                //returning the employee list to view  
+                return View(EmpInfo);
+            }
+        }
+
+        // GET: CartController/Details/5
+        public ActionResult Details(int id)
+        {
+            return View();
+        }
+
+        // GET: CartController/Create
+        public ActionResult Buy()
+        {
+            return View();
+        }
+
+        // POST: CartController/Create
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Buy(Cart c)
+        {
+            try
+            {
+                if(ModelState.IsValid)
+                {
+                    Cart c1 = new Cart();
+                    using (var httpClient = new HttpClient())
+                    {
+                        StringContent content = new StringContent(JsonConvert.SerializeObject(c),
+                      Encoding.UTF8, "application/json");
+
+                        using (var response = await httpClient.PostAsync("https://localhost:7189/api/Cart", content))
+                        {
+                            string apiResponse = await response.Content.ReadAsStringAsync();
+                            ViewBag.Message = "Item Added Succesfully";
+                        }
+                    }
+                }
+                return RedirectToAction(nameof(Index));
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
+        // GET: CartController/Edit/5
+        public async Task<ActionResult> Edit(int id)
+        {
+            Cart c = new Cart();  
+            using (var httpClient = new HttpClient())
+            {
+                using (var response = await httpClient.GetAsync("https://localhost:7189/api/Cart/GetCartbyId?id=" + id))
+                {
+                    string apiResponse = await response.Content.ReadAsStringAsync();
+                    c = JsonConvert.DeserializeObject<Cart>(apiResponse);
+                }
+            }
+            return View(c);
+        }
+
+        // POST: CartController/Edit/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Edit(int id, Cart c)
+        {
+            try
+            {
+                Cart c1 = new Cart();
+
+                using (var httpClient = new HttpClient())
+                {
+                    #region
+                    //var content = new MultipartFormDataContent();
+                    //content.Add(new StringContent(reservation.Empid.ToString()), "Empid");
+                    //content.Add(new StringContent(reservation.Name), "Name");
+                    //content.Add(new StringContent(reservation.Gender), "Gender");
+                    //content.Add(new StringContent(reservation.Newcity), "Newcity");
+                    //content.Add(new StringContent(reservation.Deptid.ToString()), "Deptid");
+                    #endregion
+                    int cid = c.Cartid;
+                    StringContent content1 = new StringContent(JsonConvert.SerializeObject(c)
+             , Encoding.UTF8, "application/json");
+                    using (var response = await httpClient.PutAsync("https://localhost:7189/api/Cart?id=" + id, content1))
+                    {
+                        string apiResponse = await response.Content.ReadAsStringAsync();
+                        ViewBag.Result = "Success";
+                        c1 = JsonConvert.DeserializeObject<Cart>(apiResponse);
+                    }
+                }
+                return RedirectToAction("index");
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
+        // GET: CartController/Delete/5
+        public async Task<ActionResult> Delete(int id)
+        {
+            Cart c = new Cart();
+            TempData["empid"] = id;
+            using (var httpClient = new HttpClient())
+            {
+                using (var response = await httpClient.GetAsync("https://localhost:7189/api/Cart/GetCartbyId?id=" + id))
+                {
+                    string apiResponse = await response.Content.ReadAsStringAsync();
+                    c = JsonConvert.DeserializeObject<Cart>(apiResponse);
+                }
+            }
+            return View(c);
+        }
+
+        // POST: CartController/Delete/5
+        [HttpPost]
+        [ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> DeleteConfirmed(int id)
+        {
+            try
+            {
+                int empid = Convert.ToInt32(TempData["empid"]);
+                using (var httpClient = new HttpClient())
+                {
+                    using (var response = await httpClient.DeleteAsync("https://localhost:7189/api/Cart?id=" + empid))
+                    {
+                        string apiResponse = await response.Content.ReadAsStringAsync();
+                    }
+                }
+
+                return RedirectToAction("Index");
+            
+                
+            }
+            catch
+            {
+                return View();
+            }
+        }
+    }
+}
