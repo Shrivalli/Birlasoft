@@ -15,7 +15,8 @@ Logging
   </root>
 </log4net>
 
-3.In Startup.cs (.NET core 5)
+3. Open the controller 
+
 private void LogError(string message)
         {
             var logRepository = LogManager.GetRepository(Assembly.GetEntryAssembly());
@@ -23,5 +24,11 @@ private void LogError(string message)
             ILog _logger = LogManager.GetLogger(typeof(LoggerManager));
             _logger.Info(message);
         }
-6.  LogError($"Product #{id}: {p.Pname},{p.Price}");  
+
+4. In API methods:  
+
+LogError($"Product #{id}: {p.Pname},{p.Price}");  
+
+
+
 http://dotnetpattern.com/nunit-assert-examples
