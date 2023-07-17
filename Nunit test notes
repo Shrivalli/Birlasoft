@@ -1,0 +1,24 @@
+1. Add a new Nunit test project to the solution in which the original project is added
+2. Refer the original project in your test project (.csproj file)
+3. Import all the namespaces
+4. Declare the reference variables and initialize the objects in the [setup] annotation
+5. Call the actual method and check the actualresult and expectedresult and check whether the test method is passes or failed.
+
+ {
+
+        public IProdRepo<Product> p;
+        [SetUp]//Initializations happen
+        public void Setup()
+        {
+            p = new ProdRepo();
+        }
+
+        [Test] //test method
+        public void Test1()
+        {
+            //3A's - Assign, Act, Assert
+            int actualresult=p.add(5, 6); //call the method
+            int expectedresult = 11;
+            Assert.AreEqual(expectedresult,actualresult);
+        }
+    }
