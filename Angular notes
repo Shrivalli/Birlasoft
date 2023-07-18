@@ -40,6 +40,10 @@ To execute the angular applications - cmd prompt - navigate within the project f
 
 ng serve - the project will get hosted in the port number 4200
 
+Data Binding in Angular:
+1. one way - the variables declared in ts to be displayed in html - {{variablename}}  --> Interpolation
+
+
 
 
 
