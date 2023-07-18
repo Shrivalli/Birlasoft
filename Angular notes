@@ -1,0 +1,63 @@
+Angular - client side javascript framework (base class libraries (node js modules)
+
+Angular helps us to create SPA ( Single Page Application)
+
+Node -node.js - node -v is used to check whether node is installed
+node package manager - install 3rd party  
+npm -v - to check the version of npm
+
+To install angular - npm install -g @angular/cli
+ng version - to check the version of angular
+
+
+To create an angular project
+ng new <prjname>
+
+Angular routing? - press y
+Stylesheet css - press enter
+
+Folder structure:
+
+1. node_modules - predefined packages
+2. app - component  - building blocks of angular project
+3. assets - wwwroot (static files/ images)
+4. environments - production / dev environment
+5. index.html - SPA(this is the only html file in your entire project)
+
+Typescript - strongly typed language (OOPS) - extension - .ts
+
+Component:
+Every component will have 4 files
+
+1.html - view 
+2. ts - logic 
+3. css- stylesheet 
+4. spec.ts - unit testing file (jasmine and karma)
+
+app.module.ts - program.cs (kickstarted into this module.ts file)
+
+To execute the angular applications - cmd prompt - navigate within the project folder
+
+ng serve - the project will get hosted in the port number 4200
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
