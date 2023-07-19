@@ -56,10 +56,45 @@ const routes: Routes = [
 <a routerLink="path"> HyperText </a>
 3. <router-outlet> </router-outlet>
 
+Inbuilt pipes:
+1. Date
+2. uppercase
+3. Currency
 
 
+Models:
+Interface/Class
+student.ts
+export interface Student
+{
+    sid:number;
+    sname:string;
+    marks:number;
+    DOB:Date;
+}
 
+StudentList.ts
+export class StudentlistComponent implements OnInit {
+s:Student;
+students:Student[]=[
+  {sid:101,sname:"Vandhana",marks:90,DOB:new Date('4/3/2020')},
+  {sid:102,sname:"Sadha",marks:50,DOB:new Date('2/3/2022')},
+  {sid:103,sname:"Radha",marks:70,DOB:new Date('5/3/2023')}
+];
+  constructor() {
+    this.s={sid:0,sname:"",marks:0,DOB:new Date('1/1/0001')};
+   }
 
+StudetnList.html
+<p>studentlist works!</p>
+<table class="table">
+<tr *ngFor="let s1 of students">
+<td>{{s1.sid}}</td>
+<td>{{s1.sname|uppercase}}</td>
+<td>{{s1.marks}}</td>
+<td>{{s1.DOB|date}}</td>
+</tr>
+</table>
 
 
 
