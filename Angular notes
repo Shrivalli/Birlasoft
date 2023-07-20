@@ -98,6 +98,12 @@ StudetnList.html
 </table>
 
 
+Service: - ts and spec.ts (will not have UI)(html + css will not be there for service)
+used to pass data across components
+
+create a service
+ng g s student
+
 
 
 
