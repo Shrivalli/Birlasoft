@@ -104,6 +104,16 @@ used to pass data across components
 create a service
 ng g s student
 
+Pushing Angular projects in github:
+node modules are ignored
+
+So after downloading/cloning the angular projects in the local machine,  execute the following command
+
+npm init 
+ng serve
+
+
+
 
 
 
