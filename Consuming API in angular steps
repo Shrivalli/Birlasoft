@@ -1,0 +1,176 @@
+Flow:
+
+Database-> API(schema) ->(interface in angular) -> service of angular -> component of angular -> html of angular
+
+
+1. Create an API:
+
+Using EFCore fetch the dbcontext and schema of the table created 
+CORS - cross origin Resource sharing 
+API is hosted in IIS(server) - 7131 
+MVC is also hosted in IIS server - 
+Angular is hosted in node server - ng serve(http://localhost:4200)
+
+program.cs
+
+builder.Services.AddCors();
+app.UseCors(options => options.WithOrigins("http://localhost:4200/").AllowAnyMethod().AllowAnyHeader().AllowAnyOrigin());
+
+Angular:
+1. Create an interface as per the schema of Swagger (student.ts) 
+App.module.ts -
+import {HttpClientModule} from '@angular/common/http';
+
+import -  HttClientModule 
+
+Service.ts-
+1. In the constructor of service- inject the HttpClient
+constructor(private http:HttpClient) { }
+
+2. create a string variable and initialize it with the API Url.
+
+3. Observable - pub sub model - Publisher Subscriber model
+
+req:string="https://localhost:7131/api/Students";
+  getAllStudents():Observable<Student[]>
+  {
+    return this.http.get<Student[]>(this.req);
+  }
+
+StudentListComponent.ts
+ngOnInit(): void {
+   // this.students=this.studentservice.getAllStudents();
+   this.studentservice.getAllStudents().subscribe(data=>{
+    this.students=data;
+   console.log(this.students);
+  });
+  }
+
+Callback functions --> API methods are async. Hence the actions has to be sequential and wait for the response of API. 
+
+Service.ts
+
+ AddNewStudent(s:Student)
+  {
+    //this.students.push(s);
+    return this.http.post<Student>(this.req,s,{
+      headers:new HttpHeaders({
+        'Content-Type':'application/json;charset=UTF-8',
+        'Access-Control-Allow-Origin':'*',
+        'Access-Control-Allow-Method':'*'
+        
+      })
+    });
+
+  }
+
+StudentAddComponent.ts
+
+ register()
+  {
+   // this.studentservice.AddNewStudent(this.s);
+    //console.log(this.s);
+    this.studentservice.AddNewStudent(this.s).subscribe(data=>{
+      this.msg="Successfully created "+data.sname;
+      //Logging the response received from web api.
+      console.log(data);
+      })
+    }
+
+
+Service.ts
+
+findStudent(id:number):any{
+    // this.getAllStudents();
+    // this.s=this.students.find(x=>x.sid==id);
+    // return this.s;
+    console.log(id+" in find student method");
+    return this.http.get<Student>(this.req+"/"+id,{
+      headers:new HttpHeaders({
+        'Content-Type':'application/json;charset=UTF-8',
+        'Access-Control-Allow-Origin':'*',
+        'Access-Control-Allow-Method':'*'
+      })
+    });
+  }
+
+  update(id:number,s:Student)
+  {
+    // this.getAllStudents();
+    // this.stid=s.sid;
+    // //this.oldstudent=this.students.find(x=>x.sid==this.stid);
+    // delete this.students[this.stid];
+    // //this.students.push(s);
+   console.log(id +" in update method");
+   console.log(s+" in update method");
+   
+    return this.http.put(this.req+"/"+id,s,{
+      headers:new HttpHeaders({
+        'Content-Type':'application/json;charset=UTF-8',
+        'Access-Control-Allow-Origin':'*',
+        'Access-Control-Allow-Method':'*'
+      })
+    });
+  }
+
+studenteditComponent.ts
+constructor(private activatedroute:ActivatedRoute,private studentservice:StudentService) { 
+    const id=this.activatedroute.snapshot.paramMap.get('id');
+    console.log(id+"in edit student oninit method");
+    this.sid=Number(id);
+    this.studentservice.findStudent(this.sid).subscribe(data=>{
+      this.s=data;
+   // this.s=this.studentservice.findStudent(this.sid);
+    console.log(data);
+  });
+}
+
+  ngOnInit(): void {
+  }
+
+  Save()
+  {
+    // console.log(this.s);
+    // this.sid=this.s.sid;
+    // this.studentservice.update(this.sid,this.s);
+    // this.message="Record Edited";
+
+    this.studentservice.update(this.sid,this.s).subscribe(data=>{
+      this.message="Successfully updated player with jersey "+this.sid;
+      console.log(data);
+    })
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
