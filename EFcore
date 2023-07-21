@@ -34,11 +34,11 @@ Scaffold-DbContext "Server=(localdb)\MSSQLLocalDB;Database=Birlasoftdb;Trusted_C
 
 In appsettings.json:
  "ConnectionStrings": {
-      "DefaultConnection": "Server=(localdb)\MSSQLLocalDB;Database=Fareportal;Trusted_Connection=True;"
+      "DefaultConnection": "Server=(localdb)\MSSQLLocalDB;Database=Birlasoftdb;Trusted_Connection=True;"
     },
 
  Program.cs
- builder.Services.AddDbContext<FareportalContext>(options =>
+ builder.Services.AddDbContext<BirlasoftDbContext>(options =>
        options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 When Repo layer is used:
