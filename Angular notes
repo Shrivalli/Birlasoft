@@ -114,7 +114,12 @@ ng serve
 
 
 
-
+Custom Pipes:
+1. Create a file and implement the class from PipeTransform interface - which has a method called transform for custom filteration.
+2. Define the method.
+3. Add a decorator @Pipe to inform the class is a custom pipe.
+4. In the App.module.ts --> inject the pipes.
+5. *ngFor add the pipes to the collection using |  --> .html
 
 
 
