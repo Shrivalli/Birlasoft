@@ -1,0 +1,21 @@
+https://www.c-sharpcorner.com/article/exception-handling-4-in-asp-net-core-mvc/
+Three ways to handle custom exceptions in api core:
+
+
+A: Exception Handling in Development Environment for ASP.NET Core Web API
+Approach 1: UseDeveloperExceptionPage
+Approach 2: UseExceptionHandler // This is something new compaired to ASP.NET Core MVC, but we can do the same for MVC module
+
+B: Exception Handling in Production Environment for ASP.NET Core Web API
+Approach 1: UseExceptionHandler
+1: Exception Handler Page
+2: Exception Handler Lambda
+
+Approach 2: UseStatusCodePages
+1: UseStatusCodePages, and with format string, and with Lambda
+2: UseStatusCodePagesWithRedirects
+3: UseStatusCodePagesWithReExecute
+
+Approach 3: Exception Filter
+Local
+Global
